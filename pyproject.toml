@@ -1,0 +1,11 @@
+[project]
+name = "hexlet-selenuim"
+version = "0.1.0"
+description = "Тестирование канбан-доски с Selenium (Python)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=9.1.1",
+    "ruff>=0.15.20",
+    "selenium>=4.45.0",
+]
