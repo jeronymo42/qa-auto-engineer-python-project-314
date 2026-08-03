@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.login_page import LoginPage
+from pages.main_page import MainPage
 
 
 logging.basicConfig(
@@ -34,6 +35,31 @@ def test_base_functionality(driver):
     login_page = LoginPage(driver)
     assert 'Task manager' in driver.title
     wait = WebDriverWait(driver, 10)
+    assert wait.until(EC.visibility_of_element_located(
+        login_page.USERNAME_INPUT)), "Username input not found"
+    assert wait.until(EC.visibility_of_element_located(
+        login_page.PASSWORD_INPUT)), "Password input not found"
+    assert wait.until(EC.visibility_of_element_located(
+        login_page.LOGIN_BUTTON)), "Login button not found"
+
+
+@pytest.mark.smoke
+def test_login(driver):
+    login_page = LoginPage(driver)
+    login_page.login('test', 'test')
+    main_page = MainPage(login_page.driver)
+    wait = WebDriverWait(main_page.driver, 10)
+    assert wait.until(EC.visibility_of_element_located(
+        main_page.PROFILE_BUTTON)), "Profile button not found"
+    assert wait.until(EC.visibility_of_element_located(
+        main_page.BOARD_HEADER)), "Board header not found"
+
+
+@pytest.mark.smoke
+def test_logout(main_page: MainPage):
+    main_page.logout()
+    login_page = LoginPage(main_page.driver)
+    wait = WebDriverWait(main_page.driver, 10)
     assert wait.until(EC.visibility_of_element_located(
         login_page.USERNAME_INPUT)), "Username input not found"
     assert wait.until(EC.visibility_of_element_located(

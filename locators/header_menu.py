@@ -7,4 +7,4 @@ class HeaderMenuLocators:
     THEME_TOGGLE_BUTTON = (
         By.XPATH, "//button[@aria-label='Toggle light/dark mode']")
     PROFILE_BUTTON = (By.XPATH, "//button[@aria-label='Profile']")
-    LOGOUT_BUTTON = (By.XPATH, "//span[text()='Logout']")
+    LOGOUT_BUTTON = (By.XPATH, "//*[@data-testid='PowerSettingsNewIcon']")
