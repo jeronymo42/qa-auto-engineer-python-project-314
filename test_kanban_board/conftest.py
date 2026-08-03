@@ -6,10 +6,11 @@ from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture
-def start_page():
+def driver():
     options = Options()
-    options.add_argument("--headless")  # Запуск без окна браузера
+    # options.add_argument("--headless")  # Запуск без окна браузера
     driver = webdriver.Chrome(options=options)
+    driver.fullscreen_window()
     driver.get(APP_BASE_URL)
     yield driver
     driver.quit()
