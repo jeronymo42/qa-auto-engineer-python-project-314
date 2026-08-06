@@ -3,13 +3,9 @@ import sys
 from time import sleep
 
 import pytest
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 from pages.login_page import LoginPage
-from pages.main_page import MainPage
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,49 +32,32 @@ def build_screenshot_path(base_url: str, test_name: str) -> str:
 def test_base_functionality(driver):
     login_page = LoginPage(driver)
     assert 'Task manager' in driver.title
-    wait = WebDriverWait(driver, 10)
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.USERNAME_INPUT)), "Username input not found"
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.PASSWORD_INPUT)), "Password input not found"
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.LOGIN_BUTTON)), "Login button not found"
+    login_page.is_visible(login_page.LOGIN_BUTTON)
+    login_page.is_visible(login_page.USERNAME_INPUT)
+    login_page.is_visible(login_page.PASSWORD_INPUT)
 
 
 @pytest.mark.smoke
 def test_login(driver):
     login_page = LoginPage(driver)
     login_page.login('test', 'test')
-    main_page = MainPage(login_page.driver)
-    wait = WebDriverWait(main_page.driver, 10)
-    assert wait.until(EC.visibility_of_element_located(
-        main_page.PROFILE_BUTTON)), "Profile button not found"
-    assert wait.until(EC.visibility_of_element_located(
-        main_page.HEADER)), "Board header not found"
+    assert login_page.is_visible(login_page.PROFILE_BUTTON)
+    assert login_page.is_visible(login_page.HEADER)
 
 
 @pytest.mark.smoke
-def test_logout(main_page: MainPage):
+def test_logout(main_page):
     main_page.logout()
-    login_page = LoginPage(main_page.driver)
-    wait = WebDriverWait(main_page.driver, 10)
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.USERNAME_INPUT)), "Username input not found"
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.PASSWORD_INPUT)), "Password input not found"
-    assert wait.until(EC.visibility_of_element_located(
-        login_page.LOGIN_BUTTON)), "Login button not found"
+    assert main_page.is_visible(main_page.LOGIN_BUTTON)
+    assert main_page.is_visible(main_page.USERNAME_INPUT)
+    assert main_page.is_visible(main_page.PASSWORD_INPUT)
 
 
 def test_open_create_user_form(user_page):
-    user_page.open_create_user_form()
-    assert user_page.driver.find_element(
-        *user_page.USERS_CREATE_FORM_FIRST_NAME_INPUT).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_CREATE_FORM_LAST_NAME_INPUT).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_CREATE_FORM_EMAIL_INPUT).is_displayed()
-    sleep(2)
+    user_page.open_create_element_form()
+    assert user_page.is_visible(user_page.USERS_CREATE_FORM_FIRST_NAME_INPUT)
+    assert user_page.is_visible(user_page.USERS_CREATE_FORM_LAST_NAME_INPUT)
+    assert user_page.is_visible(user_page.USERS_CREATE_FORM_EMAIL_INPUT)
 
 
 def test_new_user_create(user_page):
@@ -98,16 +77,11 @@ def test_new_user_create(user_page):
 
 
 def test_users_table_displayed_correct(user_page):
-    assert user_page.driver.find_element(
-        *user_page.USERS_TABLE_HEADER_ID).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_TABLE_HEADER_EMAIL).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_TABLE_HEADER_FIRST_NAME).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_TABLE_HEADER_LAST_NAME).is_displayed()
-    assert user_page.driver.find_element(
-        *user_page.USERS_TABLE_HEADER_CREATED_AT).is_displayed()
+    assert user_page.is_visible(user_page.USERS_TABLE_HEADER_ID)
+    assert user_page.is_visible(user_page.USERS_TABLE_HEADER_EMAIL)
+    assert user_page.is_visible(user_page.USERS_TABLE_HEADER_FIRST_NAME)
+    assert user_page.is_visible(user_page.USERS_TABLE_HEADER_LAST_NAME)
+    assert user_page.is_visible(user_page.USERS_TABLE_HEADER_CREATED_AT)
 
 
 def test_user_edit(user_page):
@@ -120,7 +94,7 @@ def test_user_edit(user_page):
     user_page.edit_user_email(TEST_USER_EMAIL)
     user_page.edit_user_first_name(TEST_USER_FIRST_NAME)
     user_page.edit_user_last_name(TEST_USER_LAST_NAME)
-    user_page.save_user('updated')
+    user_page.save_form('updated')
 
     user_page.switch_to_users_page()
 
@@ -135,7 +109,7 @@ def test_user_edit_with_incorrect_email(user_page):
 
     user_page.get_user_by_row_number(1).click()
     user_page.edit_user_email(TEST_USER_EMAIL)
-    user_page.save_user('invalid')
+    user_page.save_form('invalid')
 
     user_page.switch_to_users_page()
 
@@ -150,34 +124,67 @@ def test_delete_user(user_page):
     user_last_name = user_page.get_user_last_name(user_row)
 
     user_row.click()
-    user_page.delete_users()
+    user_page.delete_elements()
 
-    assert user_page.wait.until(EC.invisibility_of_element_located(
-        (By.XPATH, f"//td/span[text()='{user_email}']/../..")
-    ))
-    assert user_page.wait.until(EC.invisibility_of_element_located(
-        (By.XPATH, f"//td[text()='{user_first_name}']/../..")
-    ))
-    assert user_page.wait.until(EC.invisibility_of_element_located(
-        (By.XPATH, f"//td[text()='{user_last_name}']/../..")
-    ))
+    assert user_page.is_invisible(
+        (By.XPATH, f"//td/span[text()='{user_email}']/../.."))
+    assert user_page.is_invisible(
+        (By.XPATH, f"//td[text()='{user_first_name}']/../.."))
+    assert user_page.is_invisible(
+        (By.XPATH, f"//td[text()='{user_last_name}']/../.."))
 
 
 def test_delete_all_users(user_page):
     user_page.select_all_users()
-    user_page.delete_users(8)
+    user_page.delete_elements(8)
 
-    assert user_page.wait.until(EC.visibility_of_element_located(
+    assert user_page.is_visible(
         user_page.NO_USERS_MESSAGE
-    ))
+    )
 
 
 def test_bulk_delete_users(user_page):
     USERS_DELETE_LIST = [1, 3, 5]
     user_page.select_users(USERS_DELETE_LIST)
-    user_page.delete_users(3)
+    user_page.delete_elements(3)
 
     for user in USERS_DELETE_LIST:
-        assert user_page.wait.until(EC.invisibility_of_element_located(
+        assert user_page.is_invisible(
             (By.XPATH, f"//td[text()='{user}']/../..")
-        ))
+        )
+
+
+def test_open_create_task_form(task_page):
+    task_page.open_create_element_form()
+    task_page.header_loaded('Create Task')
+    assert task_page.is_located(task_page.ASSIGNEE_INPUT)
+    assert task_page.is_located(task_page.TITLE_INPUT)
+    assert task_page.is_located(task_page.CONTENT_INPUT)
+    assert task_page.is_located(task_page.STATUS_INPUT)
+    assert task_page.is_located(task_page.LABEL_INPUT)
+
+
+def test_create_simple_task(task_page):
+    TASK_TITLE = 'test'
+    task_page.open_create_element_form()
+    task_page.fill_task(1, TASK_TITLE, f'Description of task {TASK_TITLE}', 5)
+    task_page.save_form('created')
+    task_page.switch_to_tasks_page()
+    task_page.header_loaded('Tasks')
+    assert task_page.find_task_by_title(TASK_TITLE)
+
+
+def test_visibility_of_tasks_statuses(task_page):
+    TASK_STATUSES = ['Draft', 'To Review',
+                     'To Be Fixed', 'To Publish', 'Published']
+    for status in TASK_STATUSES:
+        assert task_page.is_visible((By.XPATH, f"//h6[text()='{status}']"))
+
+
+def test_cards_title_and_slug(task_page):
+
+    for i in range(1, 16):
+        assert task_page.is_visible(
+            (By.XPATH, f"//div[@role='button']//div[text()='Task {i}']"))
+        assert task_page.is_visible(
+            (By.XPATH, f"//div[@role='button']//p[text()='Description of task {i}']"))

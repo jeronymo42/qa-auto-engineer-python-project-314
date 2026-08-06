@@ -5,7 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from pages.login_page import LoginPage
-from pages.main_page import MainPage
+from pages.users_page import UsersPage
+from pages.tasks_page import TasksPage
 
 
 @pytest.fixture
@@ -23,12 +24,19 @@ def driver():
 def main_page(driver):
     login_page = LoginPage(driver)
     login_page.login('test', 'test')
-    main_page = MainPage(driver)
-    yield main_page
+    yield login_page
     driver.quit()
 
 
 @pytest.fixture
 def user_page(main_page):
-    users_page = main_page.switch_to_users_page()
+    users_page = UsersPage(main_page.driver)
+    users_page.switch_to_users_page()
     return users_page
+
+
+@pytest.fixture
+def task_page(main_page):
+    main_page.switch_to_tasks_page()
+    tasks_page = TasksPage(main_page.driver)
+    return tasks_page
