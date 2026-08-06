@@ -26,3 +26,9 @@ def main_page(driver):
     main_page = MainPage(driver)
     yield main_page
     driver.quit()
+
+
+@pytest.fixture
+def user_page(main_page):
+    users_page = main_page.switch_to_users_page()
+    return users_page
