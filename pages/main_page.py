@@ -117,6 +117,10 @@ class MainPage(BasePage, MainPageLocators):
             ))
         return self
 
+    def select_all_users(self):
+        self.driver.find_element(*self.MAIN_CHECKBOX).click()
+        return self
+
     def select_users(self, users):
         for user in users:
             row = self.find_user_row_by_data(user)

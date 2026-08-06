@@ -29,3 +29,7 @@ class MainPageLocators:
     ELEMENT_DELETED_MESSAGE = (By.XPATH, "//div[text()='Element deleted']")
     ELEMENT_INVALID_MESSAGE = (
         By.XPATH, "//div[text()='The form is not valid. Please check for errors']")
+
+    MAIN_CHECKBOX = (By.XPATH, "//th//input")
+
+    NO_USERS_MESSAGE = (By.XPATH, "//p[text()='No Users yet.']")

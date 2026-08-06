@@ -163,6 +163,15 @@ def test_delete_user(user_page):
     ))
 
 
+def test_delete_all_users(user_page):
+    user_page.select_all_users()
+    user_page.delete_users(8)
+
+    assert user_page.wait.until(EC.visibility_of_element_located(
+        user_page.NO_USERS_MESSAGE
+    ))
+
+
 def test_bulk_delete_users(user_page):
     USERS_DELETE_LIST = [1, 3, 5]
     user_page.select_users(USERS_DELETE_LIST)
