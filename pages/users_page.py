@@ -10,12 +10,6 @@ class UsersPage(BasePage, UsersPageLocators):
     def __init__(self, driver):
         super().__init__(driver)
 
-    def find_user_row_by_data(self, data):
-        self.wait.until(EC.visibility_of_element_located(
-            self.USERS_TABLE_HEADER_EMAIL))
-        return self.driver.find_element(
-            By.XPATH, f"//td/span[text()='{data}']/../..")
-
     def get_user_email(self, user_row):
         email = user_row.find_element(By.XPATH, "./td[3]").text
         return email
@@ -59,10 +53,6 @@ class UsersPage(BasePage, UsersPageLocators):
         self.edit_user_first_name(first_name)
         self.edit_user_last_name(last_name)
         self.save_form('created')
-        return self
-
-    def select_all_users(self):
-        self.driver.find_element(*self.MAIN_CHECKBOX).click()
         return self
 
     def select_users(self, users):

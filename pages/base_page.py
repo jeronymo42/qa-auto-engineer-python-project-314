@@ -22,20 +22,23 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         self.driver.find_element(*self.PROFILE_BUTTON).click()
         self.wait.until(EC.element_to_be_clickable(self.LOGOUT_BUTTON))
         self.driver.find_element(*self.LOGOUT_BUTTON).click()
-
         return self
 
-    def switch_to_users_page(self):
-        self.wait.until(EC.element_to_be_clickable(self.USERS_LINK))
-        self.driver.find_element(*self.USERS_LINK).click()
+    def switch_to_page(self, page_name):
+        pages = {
+            "users": self.USERS_LINK,
+            "tasks": self.TASKS_LINK,
+            "status": self.TASK_STATUSES_LINK
+        }
+        self.wait.until(EC.element_to_be_clickable(pages[page_name]))
+        self.driver.find_element(*pages[page_name]).click()
         self.wait.until(EC.visibility_of_element_located(self.HEADER))
         return self
-
-    def switch_to_tasks_page(self):
-        self.wait.until(EC.element_to_be_clickable(self.TASKS_LINK))
-        self.driver.find_element(*self.TASKS_LINK).click()
-        self.wait.until(EC.visibility_of_element_located(self.HEADER))
-        return self
+    
+    def find_table_row_by_data(self, page_header, data):
+        self.header_loaded(page_header)
+        return self.driver.find_element(
+            By.XPATH, f"//td/span[text()='{data}']/../..")
 
     def clear_input(self, input):
         input.send_keys(Keys.CONTROL + "a")
@@ -60,6 +63,10 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         self.wait.until(EC.visibility_of_element_located(
             statuses[expected_status]
         ))
+        return self
+
+    def select_all_rows(self):
+        self.driver.find_element(*self.MAIN_CHECKBOX).click()
         return self
 
     def delete_elements(self, number_of_elements=1):
