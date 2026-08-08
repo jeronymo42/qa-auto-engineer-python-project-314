@@ -13,6 +13,10 @@ start:
 stop:
 	docker stop kanban_board
 
-test: start
+smoke-tests: stop start
 	uv run pytest -k smoke
+	docker stop kanban_board
+
+all-tests: stop start
+	uv run pytest -v
 	docker stop kanban_board
