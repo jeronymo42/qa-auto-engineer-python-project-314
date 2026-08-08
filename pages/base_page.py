@@ -95,8 +95,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         return self
 
     def delete_elements(self, number_of_elements=1):
-        self.wait.until(EC.element_to_be_clickable(self.DELETE_BUTTON))
-        self.driver.find_element(*self.DELETE_BUTTON).click()
+        self.wait.until(EC.presence_of_element_located(self.DELETE_BUTTON)).click()
         if number_of_elements == 1:
             self.wait.until(
                 EC.visibility_of_element_located(self.ELEMENT_DELETED_MESSAGE)
