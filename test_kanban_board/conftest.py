@@ -14,7 +14,7 @@ from pages.labels_page import LabelsPage
 @pytest.fixture
 def driver():
     options = Options()
-    # options.add_argument("--headless")  # Запуск без окна браузера
+    options.add_argument("--headless")  # Запуск без окна браузера
     options.add_argument("--start-fullscreen")
     driver = webdriver.Chrome(options=options)
     driver.get(APP_BASE_URL)
@@ -25,7 +25,7 @@ def driver():
 @pytest.fixture
 def main_page(driver):
     login_page = LoginPage(driver)
-    login_page.login('test', 'test')
+    login_page.login('SomeTestUser', '@SomeStrongPassword1')
     yield login_page
     driver.quit()
 

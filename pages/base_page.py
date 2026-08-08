@@ -120,5 +120,8 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
     def is_located(self, element):
         return self.wait.until(EC.presence_of_element_located(element))
 
+    def is_not_located(self, element):
+        return self.wait.until(EC.invisibility_of_element_located(element))
+
     def is_not_empty(self, element):
         return bool(element.text)
