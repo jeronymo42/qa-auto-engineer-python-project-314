@@ -121,6 +121,7 @@ dependencies = [
     { name = "allure-pytest" },
     { name = "dotenv" },
     { name = "pytest" },
+    { name = "python-dotenv" },
     { name = "ruff" },
     { name = "selenium" },
 ]
@@ -130,6 +131,7 @@ requires-dist = [
     { name = "allure-pytest", specifier = ">=2.16.0" },
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "pytest", specifier = ">=9.1.1" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "ruff", specifier = ">=0.15.20" },
     { name = "selenium", specifier = ">=4.45.0" },
 ]
