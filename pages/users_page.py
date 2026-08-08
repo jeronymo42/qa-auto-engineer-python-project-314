@@ -2,11 +2,9 @@ from pages.base_page import BasePage
 from locators.users_page import UsersPageLocators
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class UsersPage(BasePage, UsersPageLocators):
-
     def __init__(self, driver):
         super().__init__(driver)
 
@@ -23,22 +21,19 @@ class UsersPage(BasePage, UsersPageLocators):
         return last_name
 
     def edit_user_email(self, email):
-        input = self.driver.find_element(
-            *self.USERS_CREATE_FORM_EMAIL_INPUT)
+        input = self.driver.find_element(*self.USERS_CREATE_FORM_EMAIL_INPUT)
         self.clear_input(input)
         input.send_keys(email)
         return self
 
     def edit_user_first_name(self, first_name):
-        input = self.driver.find_element(
-            *self.USERS_CREATE_FORM_FIRST_NAME_INPUT)
+        input = self.driver.find_element(*self.USERS_CREATE_FORM_FIRST_NAME_INPUT)
         self.clear_input(input)
         input.send_keys(first_name)
         return self
 
     def edit_user_last_name(self, last_name):
-        input = self.driver.find_element(
-            *self.USERS_CREATE_FORM_LAST_NAME_INPUT)
+        input = self.driver.find_element(*self.USERS_CREATE_FORM_LAST_NAME_INPUT)
         self.clear_input(input)
         input.send_keys(last_name)
         return self
@@ -48,11 +43,11 @@ class UsersPage(BasePage, UsersPageLocators):
         self.edit_user_email(email)
         self.edit_user_first_name(first_name)
         self.edit_user_last_name(last_name)
-        self.save_form('created')
+        self.save_form("created")
         return self
 
     def select_users(self, users):
         for user in users:
-            row = self.find_table_row_by_data(page_header='Users', data=user)
+            row = self.find_table_row_by_data(page_header="Users", data=user)
             row.find_element(By.TAG_NAME, "input").click()
         return self

@@ -25,7 +25,7 @@ def driver():
 @pytest.fixture
 def main_page(driver):
     login_page = LoginPage(driver)
-    login_page.login('SomeTestUser', '@SomeStrongPassword1')
+    login_page.login("SomeTestUser", "@SomeStrongPassword1")
     yield login_page
     driver.quit()
 
@@ -33,24 +33,26 @@ def main_page(driver):
 @pytest.fixture
 def user_page(main_page):
     users_page = UsersPage(main_page.driver)
-    users_page.switch_to_page('users')
+    users_page.switch_to_page("users")
     return users_page
 
 
 @pytest.fixture
 def status_page(main_page):
-    main_page.switch_to_page('status')
+    main_page.switch_to_page("status")
     tasks_page = StatusPage(main_page.driver)
     return tasks_page
 
+
 @pytest.fixture
 def tasks_page(main_page):
-    main_page.switch_to_page('tasks')
+    main_page.switch_to_page("tasks")
     tasks_page = TasksPage(main_page.driver)
     return tasks_page
 
+
 @pytest.fixture
 def labels_page(main_page):
-    main_page.switch_to_page('labels')
+    main_page.switch_to_page("labels")
     tasks_page = LabelsPage(main_page.driver)
     return tasks_page

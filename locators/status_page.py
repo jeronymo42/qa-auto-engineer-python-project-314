@@ -4,7 +4,6 @@ from locators.base_page import BasePageLocators
 
 
 class StatusPageLocators(BasePageLocators):
-
     CREATE_FORM_NAME_INPUT = (By.XPATH, "//input[@name='name']")
     CREATE_FORM_SLUG_INPUT = (By.XPATH, "//input[@name='slug']")
 

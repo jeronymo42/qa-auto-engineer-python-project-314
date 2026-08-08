@@ -2,11 +2,9 @@ from pages.base_page import BasePage
 from locators.status_page import StatusPageLocators
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class StatusPage(BasePage, StatusPageLocators):
-
     def __init__(self, driver):
         super().__init__(driver)
 
@@ -15,7 +13,7 @@ class StatusPage(BasePage, StatusPageLocators):
         self.driver.find_element(*self.CREATE_FORM_NAME_INPUT).send_keys(name)
 
         self.clear_input(self.driver.find_element(*self.CREATE_FORM_SLUG_INPUT))
-        self.driver.find_element(*self.CREATE_FORM_SLUG_INPUT).send_keys(slug)  
+        self.driver.find_element(*self.CREATE_FORM_SLUG_INPUT).send_keys(slug)
         return self
 
     def create_status(self, name, slug):
@@ -31,7 +29,6 @@ class StatusPage(BasePage, StatusPageLocators):
         return row.find_element(By.XPATH, "./td[4]").text
 
     def select_row_by_number(self, row_number):
-        row = self.driver.find_element(
-            By.XPATH, f"//tbody/tr[{row_number}]")
+        row = self.driver.find_element(By.XPATH, f"//tbody/tr[{row_number}]")
         row.find_element(By.TAG_NAME, "input").click()
         return row

@@ -4,20 +4,19 @@ from locators.base_page import BasePageLocators
 
 
 class TasksPageLocators(BasePageLocators):
-
     ASSIGNEE_INPUT = (By.XPATH, "//input[@name='assignee_id']")
     ASSIGNEE_COMBOBOX = (
-        By.XPATH, "//input[@name='assignee_id']/preceding-sibling::div")
+        By.XPATH,
+        "//input[@name='assignee_id']/preceding-sibling::div",
+    )
     ASSIGNEE_FILTER_CONTAINER = (By.XPATH, "//input[@name='assignee_id']/..")
     TITLE_INPUT = (By.XPATH, "//input[@name='title']")
     CONTENT_INPUT = (By.XPATH, "//textarea[@name='content']")
     STATUS_INPUT = (By.XPATH, "//input[@name='status_id']")
-    STATUS_COMBOBOX = (
-        By.XPATH, "//input[@name='status_id']/preceding-sibling::div")
+    STATUS_COMBOBOX = (By.XPATH, "//input[@name='status_id']/preceding-sibling::div")
     STATUS_FILTER_CONTAINER = (By.XPATH, "//input[@name='status_id']/..")
     LABEL_INPUT = (By.XPATH, "//input[@name='label_id']")
-    LABEL_COMBOBOX = (
-        By.XPATH, "//input[@name='label_id']/preceding-sibling::div")
+    LABEL_COMBOBOX = (By.XPATH, "//input[@name='label_id']/preceding-sibling::div")
     LABEL_FILTER_CONTAINER = (By.XPATH, "//input[@name='label_id']/..")
 
     FILTER_LIST_ITEM = (By.XPATH, "//li[@role='option']")

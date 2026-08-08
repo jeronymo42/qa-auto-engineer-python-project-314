@@ -14,5 +14,5 @@ stop:
 	docker stop kanban_board
 
 test: start
-	uv run pytest -k smoke --alluredir=reports
+	uv run pytest -k smoke
 	docker stop kanban_board
