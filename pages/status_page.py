@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from locators.status_page import StatusPageLocators
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class StatusPage(BasePage, StatusPageLocators):
@@ -29,6 +30,10 @@ class StatusPage(BasePage, StatusPageLocators):
         return row.find_element(By.XPATH, "./td[4]").text
 
     def select_row_by_number(self, row_number):
+        self.header_loaded("Task statuses")
+        self.wait.until(
+            EC.element_to_be_clickable((By.XPATH, f"//tbody/tr[{row_number}]"))
+        )
         row = self.driver.find_element(By.XPATH, f"//tbody/tr[{row_number}]")
         row.find_element(By.TAG_NAME, "input").click()
         return row

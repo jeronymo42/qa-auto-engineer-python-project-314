@@ -82,7 +82,9 @@ class TasksPage(BasePage, TasksPageLocators):
             lambda x: x.text == filter_value,
             self.driver.find_elements(*self.FILTER_LIST_ITEM),
         )
-        goal_item = next(goal_item).click()
+
+        goal_item = next(goal_item)
+        self.wait.until(EC.element_to_be_clickable(goal_item)).click()
         self.wait.until(EC.visibility_of_element_located(self.ADD_FILTER_BUTTON))
         return self
 
