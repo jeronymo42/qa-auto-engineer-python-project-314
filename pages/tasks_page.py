@@ -77,6 +77,7 @@ class TasksPage(BasePage, TasksPageLocators):
         )
 
     def filter_by(self, filter_type, filter_value):
+        self.wait.until(EC.element_to_be_clickable(self.FILTER_TYPES[filter_type]))
         self.driver.find_element(*self.FILTER_TYPES[filter_type]).click()
         goal_item = filter(
             lambda x: x.text == filter_value,
