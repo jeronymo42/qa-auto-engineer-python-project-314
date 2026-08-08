@@ -1,5 +1,5 @@
 [project]
-name = "hexlet-selenuim"
+name = "hexlet-code"
 version = "0.1.0"
 description = "Тестирование канбан-доски с Selenium (Python)"
 readme = "README.md"
