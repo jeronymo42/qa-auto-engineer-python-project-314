@@ -47,11 +47,15 @@ class TasksPage(BasePage, TasksPageLocators):
         return self
 
     def fill_task(self, assignee: str, title: str, content: str, status: str):
+        self.wait.until(EC.element_to_be_clickable(self.ASSIGNEE_COMBOBOX))
         self.driver.find_element(*self.ASSIGNEE_COMBOBOX).click()
         assignee_number = self.EMAIL_MAP[assignee]
         self.choose_option(assignee_number)
+        self.wait.until(EC.element_to_be_clickable(self.TITLE_INPUT))
         self.driver.find_element(*self.TITLE_INPUT).send_keys(title)
+        self.wait.until(EC.element_to_be_clickable(self.CONTENT_INPUT))
         self.driver.find_element(*self.CONTENT_INPUT).send_keys(content)
+        self.wait.until(EC.element_to_be_clickable(self.STATUS_COMBOBOX))
         self.driver.find_element(*self.STATUS_COMBOBOX).click()
         status_number = self.STATUS_MAP[status]
         self.choose_option(status_number)
