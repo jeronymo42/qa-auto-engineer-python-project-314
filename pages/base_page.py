@@ -88,6 +88,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         return row
 
     def select_all_rows(self):
+        self.wait.until(EC.element_to_be_clickable(self.MAIN_CHECKBOX))
         self.driver.find_element(*self.MAIN_CHECKBOX).click()
         return self
 
