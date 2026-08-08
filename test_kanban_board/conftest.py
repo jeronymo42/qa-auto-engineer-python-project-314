@@ -1,4 +1,4 @@
-from config import APP_BASE_URL
+from test_kanban_board.config import APP_BASE_URL
 
 import pytest
 from selenium import webdriver
