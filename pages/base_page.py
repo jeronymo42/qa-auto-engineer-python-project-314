@@ -41,7 +41,13 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
 
     def find_table_row_by_data(self, page_header, data):
         self.header_loaded(page_header)
-        return self.driver.find_element(By.XPATH, f"//td/span[text()='{data}']/../..")
+        goal_item_xpath = f"//td/span[text()='{data}']/../.."
+        self.wait.until(
+            EC.element_to_be_clickable(
+                (By.XPATH, goal_item_xpath)
+            )
+        )
+        return self.driver.find_element(By.XPATH, goal_item_xpath)
 
     def find_table_row_by_number(self, row_num):
         return self.driver.find_element(By.XPATH, f"//tbody/tr[{row_num}]")

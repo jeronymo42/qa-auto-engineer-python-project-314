@@ -2,6 +2,8 @@ from config import APP_BASE_URL
 
 import pytest
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 from pages.login_page import LoginPage
@@ -18,6 +20,9 @@ def driver():
     options.add_argument("--start-fullscreen")
     driver = webdriver.Chrome(options=options)
     driver.get(APP_BASE_URL)
+    WebDriverWait(driver, 10).until(
+        EC.title_contains("Task manager")
+    )
     yield driver
     driver.quit()
 

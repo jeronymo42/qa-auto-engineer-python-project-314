@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from locators.users_page import UsersPageLocators
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class UsersPage(BasePage, UsersPageLocators):
@@ -49,5 +50,6 @@ class UsersPage(BasePage, UsersPageLocators):
     def select_users(self, users):
         for user in users:
             row = self.find_table_row_by_data(page_header="Users", data=user)
+            self.wait.until(EC.element_to_be_clickable(row))
             row.find_element(By.TAG_NAME, "input").click()
         return self
