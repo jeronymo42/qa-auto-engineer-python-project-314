@@ -20,9 +20,7 @@ def driver():
     options.add_argument("--start-fullscreen")
     driver = webdriver.Chrome(options=options)
     driver.get(APP_BASE_URL)
-    WebDriverWait(driver, 10).until(
-        EC.title_contains("Task manager")
-    )
+    WebDriverWait(driver, 10).until(EC.title_contains("Task manager"))
     yield driver
     driver.quit()
 
