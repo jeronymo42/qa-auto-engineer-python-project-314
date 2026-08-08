@@ -22,10 +22,6 @@ class UsersPage(BasePage, UsersPageLocators):
         last_name = user_row.find_element(By.XPATH, "./td[5]").text
         return last_name
 
-    def get_user_by_row_number(self, row_number):
-        return self.driver.find_element(
-            By.XPATH, f"//tbody/tr[{row_number}]")
-
     def edit_user_email(self, email):
         input = self.driver.find_element(
             *self.USERS_CREATE_FORM_EMAIL_INPUT)
@@ -57,6 +53,6 @@ class UsersPage(BasePage, UsersPageLocators):
 
     def select_users(self, users):
         for user in users:
-            row = self.find_user_row_by_data(user)
+            row = self.find_table_row_by_data(page_header='Users', data=user)
             row.find_element(By.TAG_NAME, "input").click()
         return self

@@ -8,13 +8,14 @@ from pages.login_page import LoginPage
 from pages.users_page import UsersPage
 from pages.status_page import StatusPage
 from pages.tasks_page import TasksPage
+from pages.labels_page import LabelsPage
 
 
 @pytest.fixture
 def driver():
     options = Options()
     # options.add_argument("--headless")  # Запуск без окна браузера
-    # options.add_argument("--start-fullscreen")
+    options.add_argument("--start-fullscreen")
     driver = webdriver.Chrome(options=options)
     driver.get(APP_BASE_URL)
     yield driver
@@ -43,7 +44,13 @@ def status_page(main_page):
     return tasks_page
 
 @pytest.fixture
-def task_page(main_page):
+def tasks_page(main_page):
     main_page.switch_to_page('tasks')
     tasks_page = TasksPage(main_page.driver)
+    return tasks_page
+
+@pytest.fixture
+def labels_page(main_page):
+    main_page.switch_to_page('labels')
+    tasks_page = LabelsPage(main_page.driver)
     return tasks_page

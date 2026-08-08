@@ -28,7 +28,8 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         pages = {
             "users": self.USERS_LINK,
             "tasks": self.TASKS_LINK,
-            "status": self.TASK_STATUSES_LINK
+            "status": self.TASK_STATUSES_LINK,
+            "labels": self.LABELS_LINK
         }
         self.wait.until(EC.element_to_be_clickable(pages[page_name]))
         self.driver.find_element(*pages[page_name]).click()
@@ -39,6 +40,9 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         self.header_loaded(page_header)
         return self.driver.find_element(
             By.XPATH, f"//td/span[text()='{data}']/../..")
+
+    def find_table_row_by_number(self, row_num):
+        return self.driver.find_element(By.XPATH, f'//tbody/tr[{row_num}]')
 
     def clear_input(self, input):
         input.send_keys(Keys.CONTROL + "a")
@@ -65,6 +69,27 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         ))
         return self
 
+    def get_all_rows(self):
+        return self.driver.find_elements(By.XPATH, '//tbody/tr')
+
+
+    def get_table_title_row(self):
+        return self.driver.find_element(By.XPATH, '//thead/tr')
+
+    def get_table_titles(self):
+        title_row = self.get_table_title_row()
+        titles_elems = title_row.find_elements(By.XPATH, './th')
+        result = []
+        for title_elem in titles_elems:
+            result.append(title_elem.text)
+        return result[1:]
+
+    def select_row_by_number(self, row_number):
+        row = self.driver.find_element(
+            By.XPATH, f"//tbody/tr[{row_number}]")
+        row.find_element(By.TAG_NAME, "input").click()
+        return row
+    
     def select_all_rows(self):
         self.driver.find_element(*self.MAIN_CHECKBOX).click()
         return self
@@ -94,3 +119,6 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
 
     def is_located(self, element):
         return self.wait.until(EC.presence_of_element_located(element))
+
+    def is_not_empty(self, element):
+        return bool(element.text)
