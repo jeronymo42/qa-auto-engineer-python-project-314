@@ -26,6 +26,9 @@ make all-tests
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/jeronymo42/qa-auto-engineer-python-project-314/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/jeronymo42/qa-auto-engineer-python-project-314/actions)
 
+### Github check
+[![hexlet-selenuim-test](https://github.com/jeronymo42/qa-auto-engineer-python-project-314/actions/workflows/python-app.yml/badge.svg)](https://github.com/jeronymo42/qa-auto-engineer-python-project-314/actions/workflows/python-app.yml)
+
 ### SonarQube Badges:
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)
