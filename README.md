@@ -37,3 +37,4 @@ make all-tests
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jeronymo42_qa-auto-engineer-python-project-314&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jeronymo42_qa-auto-engineer-python-project-314)

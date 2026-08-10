@@ -43,8 +43,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
     def find_table_row_by_data(self, page_header, data):
         self.header_loaded(page_header)
         goal_item_xpath = f"//td/span[text()='{data}']/../.."
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, goal_item_xpath)))
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, goal_item_xpath)))
         return self.driver.find_element(By.XPATH, goal_item_xpath)
 
     def find_table_row_by_number(self, row_num):
@@ -69,8 +68,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
             "invalid": self.ELEMENT_INVALID_MESSAGE,
         }
         self.driver.find_element(*self.SAVE_BUTTON).click()
-        self.wait.until(EC.visibility_of_element_located(
-            statuses[expected_status]))
+        self.wait.until(EC.visibility_of_element_located(statuses[expected_status]))
         return self
 
     def get_all_rows(self):
@@ -98,8 +96,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         return self
 
     def delete_elements(self, number_of_elements=1):
-        self.wait.until(EC.presence_of_element_located(
-            self.DELETE_BUTTON)).click()
+        self.wait.until(EC.presence_of_element_located(self.DELETE_BUTTON)).click()
         if number_of_elements == 1:
             self.wait.until(
                 EC.visibility_of_element_located(self.ELEMENT_DELETED_MESSAGE)
@@ -107,8 +104,7 @@ class BasePage(HeaderMenuLocators, SideMenuLocators, BasePageLocators):
         else:
             self.wait.until(
                 EC.visibility_of_element_located(
-                    (By.XPATH,
-                     f"//div[text()='{number_of_elements} elements deleted']")
+                    (By.XPATH, f"//div[text()='{number_of_elements} elements deleted']")
                 )
             )
         return self

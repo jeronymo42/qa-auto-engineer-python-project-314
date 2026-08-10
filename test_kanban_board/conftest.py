@@ -1,6 +1,6 @@
-from test_kanban_board.config import APP_BASE_URL
-
 import pytest
+import os
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,6 +15,12 @@ from pages.labels_page import LabelsPage
 
 @pytest.fixture
 def driver():
+    IMPLEMENTATION = os.getenv("IMPLEMENTATION")
+    if IMPLEMENTATION:
+        os.environ["APP_BASE_URL"] = f"http://{IMPLEMENTATION}.test"
+    else:
+        os.environ["APP_BASE_URL"] = os.getenv(
+            "APP_BASE_URL", "http://127.0.0.1:5173")
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -22,7 +28,8 @@ def driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     driver = webdriver.Chrome(options=options)
-    driver.get(APP_BASE_URL)
+    BASE_URL = os.getenv("APP_BASE_URL")
+    driver.get(BASE_URL)
     WebDriverWait(driver, 10).until(EC.title_contains("Task manager"))
     yield driver
     driver.quit()
