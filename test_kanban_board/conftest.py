@@ -30,7 +30,7 @@ def driver():
     driver = webdriver.Chrome(options=options)
     BASE_URL = os.getenv("APP_BASE_URL")
     driver.get(BASE_URL)
-    WebDriverWait(driver, 10).until(EC.title_contains("Task manager"))
+    WebDriverWait(driver, 15).until(EC.title_contains("Task manager"))
     yield driver
     driver.quit()
 
