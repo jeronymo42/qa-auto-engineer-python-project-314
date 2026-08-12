@@ -19,8 +19,7 @@ def test_new_user_create(user_page: UsersPage):
     TEST_USER_FIRST_NAME = "test"
     TEST_USER_LAST_NAME = "test"
 
-    user_page.create_user(
-        TEST_USER_EMAIL, TEST_USER_FIRST_NAME, TEST_USER_LAST_NAME)
+    user_page.create_user(TEST_USER_EMAIL, TEST_USER_FIRST_NAME, TEST_USER_LAST_NAME)
 
     user_page.switch_to_page("users")
 
@@ -86,12 +85,9 @@ def test_delete_user(user_page: UsersPage):
     user_row.click()
     user_page.delete_elements()
 
-    assert user_page.is_invisible(
-        (By.XPATH, f"//td/span[text()='{user_email}']/../.."))
-    assert user_page.is_invisible(
-        (By.XPATH, f"//td[text()='{user_first_name}']/../.."))
-    assert user_page.is_invisible(
-        (By.XPATH, f"//td[text()='{user_last_name}']/../.."))
+    assert user_page.is_invisible((By.XPATH, f"//td/span[text()='{user_email}']/../.."))
+    assert user_page.is_invisible((By.XPATH, f"//td[text()='{user_first_name}']/../.."))
+    assert user_page.is_invisible((By.XPATH, f"//td[text()='{user_last_name}']/../.."))
 
 
 @pytest.mark.users
@@ -109,5 +105,4 @@ def test_bulk_delete_users(user_page: UsersPage):
     user_page.delete_elements(3)
 
     for user in USERS_DELETE_LIST:
-        assert user_page.is_invisible(
-            (By.XPATH, f"//td[text()='{user}']/../.."))
+        assert user_page.is_invisible((By.XPATH, f"//td[text()='{user}']/../.."))

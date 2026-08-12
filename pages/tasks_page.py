@@ -12,7 +12,7 @@ class TasksPage(BasePage, TasksPageLocators):
         "To Review": 2,
         "To Be Fixed": 3,
         "To Publish": 4,
-        "Published": 4,
+        "Published": 5,
     }
 
     EMAIL_MAP = {
@@ -77,11 +77,13 @@ class TasksPage(BasePage, TasksPageLocators):
     def is_task_in_column(self, task_title, column_name):
         column_elem = self.find_column_by_name(column_name)
         return len(
-            column_elem.find_elements(By.XPATH, f".//div[text()='{task_title}']")
+            column_elem.find_elements(
+                By.XPATH, f".//div[text()='{task_title}']")
         )
 
     def filter_by(self, filter_type, filter_value):
-        self.wait.until(EC.element_to_be_clickable(self.FILTER_TYPES[filter_type]))
+        self.wait.until(EC.element_to_be_clickable(
+            self.FILTER_TYPES[filter_type]))
         self.driver.find_element(*self.FILTER_TYPES[filter_type]).click()
         goal_item = filter(
             lambda x: x.text == filter_value,
@@ -90,7 +92,8 @@ class TasksPage(BasePage, TasksPageLocators):
 
         goal_item = next(goal_item)
         self.wait.until(EC.element_to_be_clickable(goal_item)).click()
-        self.wait.until(EC.visibility_of_element_located(self.ADD_FILTER_BUTTON))
+        self.wait.until(EC.visibility_of_element_located(
+            self.ADD_FILTER_BUTTON))
         return self
 
     def clear_filter(self, filter_type):

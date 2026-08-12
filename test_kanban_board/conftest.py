@@ -19,8 +19,7 @@ def driver():
     if IMPLEMENTATION:
         os.environ["APP_BASE_URL"] = f"http://{IMPLEMENTATION}.test"
     else:
-        os.environ["APP_BASE_URL"] = os.getenv(
-            "APP_BASE_URL", "http://127.0.0.1:5173")
+        os.environ["APP_BASE_URL"] = os.getenv("APP_BASE_URL", "http://127.0.0.1:5173")
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")

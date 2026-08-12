@@ -20,8 +20,7 @@ def test_create_new_status(status_page: StatusPage):
     status_page.create_status(*TEST_STATUS)
     status_page.switch_to_page("status")
     status_page.header_loaded("Task statuses")
-    goal_row = status_page.find_table_row_by_data(
-        "Task statuses", TEST_STATUS[0])
+    goal_row = status_page.find_table_row_by_data("Task statuses", TEST_STATUS[0])
 
     assert status_page.get_name_from_row(goal_row) == TEST_STATUS[0]
     assert status_page.get_slug_from_row(goal_row) == TEST_STATUS[1]
@@ -75,14 +74,10 @@ def test_delete_status(status_page: StatusPage):
     old_slug_2 = status_page.get_slug_from_row(test_row_2)
 
     status_page.delete_elements(2)
-    assert status_page.is_invisible(
-        (By.XPATH, f"//td[text()='{old_name_1}']/../.."))
-    assert status_page.is_invisible(
-        (By.XPATH, f"//td[text()='{old_slug_1}']/../.."))
-    assert status_page.is_invisible(
-        (By.XPATH, f"//td[text()='{old_name_2}']/../.."))
-    assert status_page.is_invisible(
-        (By.XPATH, f"//td[text()='{old_slug_2}']/../.."))
+    assert status_page.is_invisible((By.XPATH, f"//td[text()='{old_name_1}']/../.."))
+    assert status_page.is_invisible((By.XPATH, f"//td[text()='{old_slug_1}']/../.."))
+    assert status_page.is_invisible((By.XPATH, f"//td[text()='{old_name_2}']/../.."))
+    assert status_page.is_invisible((By.XPATH, f"//td[text()='{old_slug_2}']/../.."))
 
 
 @pytest.mark.status

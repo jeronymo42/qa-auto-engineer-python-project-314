@@ -37,8 +37,7 @@ def test_create_simple_task_status(tasks_page: TasksPage):
 @pytest.mark.smoke
 @pytest.mark.tasks
 def test_visibility_of_statuses(tasks_page: TasksPage):
-    TASK_STATUSES = ["Draft", "To Review",
-                     "To Be Fixed", "To Publish", "Published"]
+    TASK_STATUSES = ["Draft", "To Review", "To Be Fixed", "To Publish", "Published"]
     for status in TASK_STATUSES:
         assert tasks_page.is_visible((By.XPATH, f"//h6[text()='{status}']"))
 
@@ -52,8 +51,7 @@ def test_cards_title_and_slug(tasks_page: TasksPage):
             (By.XPATH, f"//div[@role='button']//div[text()='Task {i}']")
         )
         assert tasks_page.is_visible(
-            (By.XPATH,
-             f"//div[@role='button']//p[text()='Description of task {i}']")
+            (By.XPATH, f"//div[@role='button']//p[text()='Description of task {i}']")
         )
 
 
